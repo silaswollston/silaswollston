@@ -1,0 +1,50 @@
+.pop-up-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding-top: calc(7.5vh + 2.5rem);
+    transition: 800ms ease all;
+}
+
+.pop-up-container.hidden {
+    transform: translateY(-100vh);
+    opacity: 0;
+}
+
+.main-updates-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 45vw;
+    gap: 1.125vh;
+    height: 80vh;
+    overflow-y: scroll;
+    color: var(--white);
+}
+
+.main-updates-container > * {
+    width: 90%;
+}
+
+.exit {
+    position: absolute;
+    right: 2vw;
+    top: 6vw;
+}
+
+.main-updates-container > .update {
+    display: flex;
+    flex-direction: column;
+    gap: 1vh;
+    text-align: center;
+    padding-block: 5vh
+}
+
+.main-updates-container > .update > .title {
+    font-size: 2.5rem;
+}
+
+.main-updates-container > .update > .date {
+    font-size: 1.5rem;
+    font-weight: 100;
+}

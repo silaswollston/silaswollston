@@ -1,0 +1,215 @@
+body {
+    min-height: 101vh;
+}
+
+.info {
+    display: grid;
+    text-align: center;
+    width: 100%;
+    margin-top: 2.5rem;
+    font-size: 2.5rem;
+    color: var(--white);
+    font-family: 'Larken';
+    font-weight: 100;
+}
+
+.listen-items {
+    margin: auto;
+    width: 90%;
+    padding: 2.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: center;
+    gap: 0 3rem;
+}
+
+.listen-item {
+    position: relative;
+    min-width: 17.5rem;
+    height: 17.5rem;
+}
+
+.loading-container {
+    position: fixed;
+    display: grid;
+    place-items: center;
+    inset: 0;
+    background: rgba(0,0,0,0);
+    backdrop-filter: blur(0.5rem);
+    color: var(--white);
+    font-weight: 300;
+    z-index: 50;
+    transform: translateY(0%);
+
+    transition: all 2s ease;
+}
+
+.loading-container.hidden {
+    transform: translateY(-100%);
+}
+
+.loading-container > * {grid-area: 1 / 1}
+
+.loading-container > img {
+    width: 5rem;
+    animation: loading 500ms linear infinite;
+}
+
+.video-embed.subtle-component {
+    width: auto;
+    max-width: 100%;
+    display: block;
+}
+
+.listen-item:has(.video-embed) {
+    width: auto;
+    height: 20rem;
+    max-width: unset;
+    min-width: unset;
+    transform: translateY(.25rem);
+}
+
+.listen-item > .cover-image {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+}
+
+.listen-item > .embed {
+    position: absolute;
+    top: 90%;
+    width: 110%;
+    left: -5%;
+    height: 30%;
+    transition: all 200ms ease;
+}
+
+.listen-item * {width: 100%; height: 100%;}
+
+.listen-item > .buy-link {
+    position: absolute;
+    top: 0rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 3rem;
+    background: var(--src);
+    aspect-ratio: 1 / 1;
+    background-size: contain;
+    background-repeat: no-repeat;
+
+    transition: all 250ms ease;
+}
+
+.listen-item:has(.active) {z-index: 1}
+
+.listen-item > .buy-link.active {
+    top: -2.8rem;
+}
+
+.listen-item > .embed.active, .music-player.active {
+    transform: translateY(27.5%);
+}
+
+.subtle-component {
+    box-shadow: 0 1.125rem 1.125rem rgba(0,0,0,0.35);
+    border: 1px solid var(--blue);
+    border-radius: .25rem;
+    transition: all 200ms ease;
+}
+
+.subtle-component:hover {
+    box-shadow: 0 .5rem .5rem var(--blue);
+    transform: scale(1.02) translateY(-.125rem);
+}
+
+.toggle {
+    position: relative;
+    display: grid;
+    padding: .2rem;
+    place-content: center;
+    place-items: center;
+    text-align: center;
+    color: var(--transparent-light);
+    font-weight: 900;
+    width: fit-content;
+    height: fit-content;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: 1fr;
+    margin: 2.5rem auto 0 auto;
+    background: var(--transparent-light);
+    border-radius: 10vw;
+    border: var(--standard-border);
+}
+
+.toggle > * {
+    grid-row: 1 / 2;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    height: 2.5rem;
+}
+
+.position {
+    position: absolute;
+    width: 33.3%;
+    left: .2rem;
+    font-weight: 800;
+    box-shadow: inset 0 .25rem .25rem rgba(0, 0, 0, 0.383),
+                0 .125rem .125rem rgba(0, 0, 0, 0.383);
+    background: var(--white);
+    border-radius: 50vw;
+    color: var(--dark);
+    user-select: none;
+    cursor: pointer;
+    transition: all 250ms ease;
+}
+
+.listen-item.has-embed {
+    margin-bottom: 4.5rem;
+    transform: translateY(-2.25rem);
+}
+
+.listen-item.video-embed {
+    margin-bottom: 2.5rem;
+}
+
+.listen-item.temporary-toggle {
+    display: none;
+}
+
+.listen-items.transition-fade {
+    animation: transition-fade 1s ease;
+}
+
+.composer {
+    grid-column: 1 / 2;
+}
+
+.all {
+    grid-column: 2 / 3;
+}
+
+.performer {
+    grid-column: 3 / 4;
+}
+
+@media (max-width: 450px) {
+    .shop-item {
+        width: 80%;
+        height: 80%;
+    }
+}
+
+@keyframes loading {
+    0% {transform: rotate(0deg);}
+    100% {transform: rotate(360deg);}
+}
+
+@keyframes transition-fade {
+    30%, 70% {opacity: 0}
+    0%, 100% {opacity: 1;}
+}
+

@@ -1,0 +1,102 @@
+/* Larken Font Family */
+@font-face {
+    font-family: 'Larken';
+    src: url('./fonts/larken/LarkenDEMO-Black.otf') format('opentype');
+    font-weight: 900; /* Black */
+}
+
+@font-face {
+    font-family: 'Larken';
+    src: url('./fonts/larken/LarkenDEMO-Bold.otf') format('opentype');
+    font-weight: bold; /* Bold */
+}
+
+@font-face {
+    font-family: 'Larken';
+    src: url('./fonts/larken/LarkenDEMO-ExtraBold.otf') format('opentype');
+    font-weight: 800; /* ExtraBold */
+}
+
+@font-face {
+    font-family: 'Larken';
+    src: url('./fonts/larken/LarkenDEMO-Light.otf') format('opentype');
+    font-weight: 300; /* Light */
+}
+
+@font-face {
+    font-family: 'Larken';
+    src: url('./fonts/larken/LarkenDEMO-Medium.otf') format('opentype');
+    font-weight: 500; /* Medium */
+}
+
+@font-face {
+    font-family: 'Larken';
+    src: url('./fonts/larken/LarkenDEMO-Regular.otf') format('opentype');
+    font-weight: normal; /* Regular */
+}
+
+@font-face {
+    font-family: 'Larken';
+    src: url('./fonts/larken/LarkenDEMO-Thin.otf') format('opentype');
+    font-weight: 100; /* Thin */
+}
+
+/* Italic variations */
+
+@font-face {
+    font-family: 'Larken';
+    src: url('./fonts/larken/LarkenDEMO-BlackItalic.otf') format('opentype');
+    font-weight: 900; /* Black */
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Larken';
+    src: url('./fonts/larken/LarkenDEMO-BoldItalic.otf') format('opentype');
+    font-weight: bold; /* Bold */
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Larken';
+    src: url('./fonts/larken/LarkenDEMO-ExtraBoldItalic.otf') format('opentype');
+    font-weight: 800; /* ExtraBold */
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Larken';
+    src: url('./fonts/larken/LarkenDEMO-LightItalic.otf') format('opentype');
+    font-weight: 300; /* Light */
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Larken';
+    src: url('./fonts/larken/LarkenDEMO-MediumItalic.otf') format('opentype');
+    font-weight: 500; /* Medium */
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Larken';
+    src: url('./fonts/larken/LarkenDEMO-RegularItalic.otf') format('opentype');
+    font-weight: normal; /* Regular */
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Larken';
+    src: url('./fonts/larken/LarkenDEMO-ThinItalic.otf') format('opentype');
+    font-weight: 100; /* Thin */
+    font-style: italic;
+}
+
+/* TT Interphases Pro Trial Variable Font */
+
+@font-face {
+    font-family: 'TT-Sans';
+    src: url('./fonts/tt-interphases/TT Interphases Pro Trial Variable.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}

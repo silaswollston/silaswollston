@@ -1,0 +1,308 @@
+@font-face {
+    font-family: "Stylish-Serif";
+    src: url(./fonts/Quattrocento-Regular.ttf);
+}
+
+.book-container {
+    padding-inline: 4rem;
+    margin-top: 5vh;
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+}
+
+.book {
+    display: grid;
+    place-items: center;
+    width: 100%;
+    height: fit-content;
+    max-width: 50rem;
+    grid-template-columns: 1fr auto;
+    gap: 1.5rem;
+}
+
+.book > .book-cover {
+    width: 10em;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    aspect-ratio: 160 / 250;
+    border-radius: .25rem;
+    filter: drop-shadow(0 .25rem .25rem rgba(0, 4, 18, 0.698))
+}
+
+.book > .container {
+    display: flex;
+    gap: 1rem;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    color: var(--white);
+}
+
+.container > .text-name {
+    text-align: left;
+    line-height: 88%;
+    font-weight: 600;
+    font-size: 3rem;
+    font-family: 'Larken';
+}
+
+.container > .text-date {
+    opacity: 0.8;
+    font-size: 1.125rem;
+    font-weight: 100;
+}
+
+.container p.text-description {
+    font-weight: 100;
+    width: 90%;
+}
+
+
+.read-accent {
+    font-weight: 900;
+    font-style: italic;
+}
+
+button.continue-reading {
+    margin-top: auto;
+    font-family: "TT-Sans";
+    font-size: 1.125rem;
+    padding-block: .75rem;
+}
+
+.read-panel {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    gap: 1.125rem;
+    position: fixed;
+    right: 4rem;
+    top: 10vh;
+    width: clamp(40em, 45vw, 100vw);
+    height: fit-content;
+    max-height: 85vh;
+    background: rgba(23, 32, 51, 0.629);
+    color: var(--white);
+    padding: 2.5rem 4rem;
+    border-radius: .75rem;
+    -webkit-user-drag: none;
+    box-shadow: 0 .75rem .5rem rgba(1, 0, 21, 0.629),
+                inset 0 5rem 5rem 2rem rgb(9, 22, 38);
+    backdrop-filter: blur(2.5rem);
+}
+
+p > a {
+    color: inherit;
+}
+
+
+
+.backdrop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 50%;
+    z-index: -1;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: 0.4;
+    filter: blur(.125rem);
+    mask: linear-gradient(white, transparent);
+    -webkit-mask: linear-gradient(white, transparent);
+}
+
+.read-panel > .text-name {
+    font-size: 3rem;
+    display: block;
+    height: fit-content;
+    text-align: center;
+    font-family: "Larken";
+    font-weight: 600;
+    line-height: 100%;
+
+    user-select: none;
+    pointer-events: none;
+}
+
+.read-panel > .text-abstract {
+    overflow-y: hidden;
+    display: grid;
+    grid-template-columns: auto auto;
+    gap: 0;
+}
+
+.text-abstract > p {
+    font-family: "Stylish-Serif";
+    line-height: 125%;
+    font-size: 1.125rem;
+}
+
+.text-abstract > .content{
+    overflow-y: auto;
+    gap: 1em;
+    padding-right: 1.125rem;
+    font-family: "Stylish-Serif";
+    line-height: 125%;
+    font-size: 1.125rem;
+}
+
+.read-panel:not(.mobile) > .exit {display: none}
+
+.read-panel.mobile {
+    bottom: 0;
+    top: unset;
+    left: 0;
+    width: 100%;
+    height: fit-content;
+    z-index: 200;
+    max-height: 92.5%;
+    padding-block: 5vh;
+    backdrop-filter: blur(5rem) brightness(0.2);
+
+    transition: transform 250ms ease;
+}
+
+.read-panel.mobile.minimised {
+    transform: translateY(100%);
+}
+
+.read-panel.mobile > .exit {
+    position: absolute;
+    top: 1.125rem;
+    cursor: pointer;
+    right: 1.125rem;
+    width: 1.125rem;
+}
+
+.scroll-container, .scroll-container > .content {
+    position: relative;
+    width: 100%;
+    max-height: fit-content;
+    overflow-x: hidden;
+    text-align: justify;
+}
+
+
+.content > *:not(:first-child) {
+    margin-top: 1em;
+}
+
+.scroll-container::-webkit-scrollbar, .content::-webkit-scrollbar {
+    opacity: 0;
+}
+
+.scroll-bar-container {
+    position: relative;
+    width: 1em;
+    height: 100%;
+    border-radius: 5rem;
+    overflow-y: hidden;
+    background: var(--transparent-light);
+}
+
+.thumb-track {
+    position: absolute;
+    top: 0;
+    height: 4rem;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.596);
+    border-radius: 5rem;
+    transition: background 250ms ease;
+}
+
+.thumb-track.active-hover {
+    background: rgb(255, 255, 255);
+}
+
+.read-in-website {
+    width: fit-content;
+    text-align: center;
+    margin: auto;
+}
+
+
+@media (max-width: 1300px) {
+    .book-container {
+        width: 100vw;
+    }
+    .book {
+        margin: auto;
+        width: fit-content;
+    }
+}
+
+@media (max-width: 1000px) {
+    .container > .text-name {font-size: 2.5rem;}
+}
+
+@media (max-width: 900px) {.text-abstract, p {text-align: left;}}
+
+@media (max-width: 1000px) {
+    .scroll-bar-container {
+        display: none;
+    }
+    .scroll-container > .content {
+        width: 100%;
+        padding-right: 0;
+    }
+}
+
+@media (max-width: 750px) {
+    .book-container {gap: 10vh}
+    .container > .text-name {font-size: 2rem;}
+    .book {
+        display: flex;
+        flex-direction: column;
+    }
+    .book > .container {
+        align-items: center;
+        gap: .5rem
+    }
+    .book > .book-cover {
+        width: 7.5em;
+    }
+    .container > .text-name, h2.text-date, .text-description {
+        text-align: center;
+    }
+    button.continue-reading {
+        margin-top: 1rem;
+    }
+}
+
+@media (max-width: 550px) {
+    .read-panel {
+        border-radius: none;
+        border: none;
+    }
+    .read-panel > .text-name {
+        font-size: 2.5rem;
+    }
+    .content > p {font-size: 1rem;}
+}
+
+@media (max-width: 490px) {
+    .read-panel > .text-name {
+        margin-block: 2rem;
+    }
+    .read-panel {
+       padding: 0rem 2rem;
+    }
+    .read-panel.mobile > .exit {
+        right: 1.5rem;
+    }
+    .scroll-container > .content {
+        padding-right: .25rem;
+    }
+    .scroll-bar-container {
+        width: .9rem;
+    }
+    .read-panel > .text-name {
+        font-size: 2.5rem;
+    }
+}
+
