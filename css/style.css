@@ -121,6 +121,30 @@ body > *:not(.background-image, nav, .cursor, .no-anim, .cards-container, .loadi
     pointer-events: none;
 }
 
+body > .info-container > .image {
+    position: relative;
+}
+
+body > .info-container:has(.image)::after {
+    content: 'Photographer: Chris Christodoulou';
+    position: absolute;
+    z-index: 10;
+    font-size: .75rem;
+    right: .75rem;
+    bottom: .75rem;
+    opacity: .8;
+}
+
+body > .info-container.biography-container:has(.image)::after {
+    content: 'Photographer: Chris Christodoulou';
+    position: absolute;
+    z-index: 10;
+    font-size: .75rem;
+    left: .75rem;
+    bottom: .75rem;
+    opacity: .8;
+}
+
 a, .nav-button {cursor: pointer}
 
 .cursor {
