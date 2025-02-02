@@ -135,7 +135,7 @@ body > .info-container:has(.image)::after {
     opacity: .8;
 }
 
-body > .info-container.biography-container:has(.image)::after {
+body > .info-container:has(.image.left)::after {
     content: 'Photographer: Chris Christodoulou';
     position: absolute;
     z-index: 10;

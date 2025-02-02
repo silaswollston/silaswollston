@@ -19,7 +19,7 @@
     <div class="padding-10 top"></div>
     <div class="info-container biography-container default-component contact-container">
         <form>
-            <input type="hidden" name="access_key" value="43055019-7ddb-418a-893b-11b0c86b672d">
+            <input type="hidden" name="access_key" value="c3480a76-725e-41c2-ae5f-b08247679ea0">
             <input type="hidden" name="from_name" value="silaswollston.com">
             <input type="text" name="name" placeholder="Name" class="form-input-name">
             <input type="email" name="email" placeholder="Email Address" class="form-input-email">
@@ -58,9 +58,7 @@
             })
             .then(async (response) => {
                 let json = await response.json();
-                if (response.status == 200) {
-                    message.textContent = json.message;
-                } else {
+                if (response.status !== 200) {
                     console.log(response);
                     message.textContent = json.message;
                 }
