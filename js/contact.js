@@ -25,7 +25,7 @@ if(get_client_width() > 700) {
 }
 
 function work_list() {
-    fetch('./website_struct.md')
+    fetch('../website_struct.md')
     .then(data => {
         return data.text();
     })

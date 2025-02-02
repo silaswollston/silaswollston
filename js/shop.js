@@ -141,11 +141,11 @@ async function start_loading_process() {
             const listen_item = create_element("div", "listen-item");
 
             if ((item.embed.substring(0, 1)) !== "<" && item.embed !== "n/a") {
-                const clip_src = `./assets/listen/${item.embed}-clip.mp3`;
-                const track_src = `./assets/listen/${item.embed}.mp3`;
+                const clip_src = `../assets/listen/${item.embed}-clip.mp3`;
+                const track_src = `../assets/listen/${item.embed}.mp3`;
                 listen_item.classList.add('music-player-parent');
 
-                const music_player = generate_music_player(listen_item, `./assets/shop/${item.cover_url}`, clip_src, track_src);
+                const music_player = generate_music_player(listen_item, `../assets/shop/${item.cover_url}`, clip_src, track_src);
                 active_listener(music_player, listen_item);
                 listen_item.appendChild(music_player);
             }
@@ -158,9 +158,9 @@ async function start_loading_process() {
 
             let icon = "";
             if (String(item.is_buy) === "TRUE") {
-                icon = "url(./assets/shopping-basket.png)";
+                icon = "url(../assets/shopping-basket.png)";
             } else {
-                icon = "url(./assets/open_link.svg)";
+                icon = "url(../assets/open_link.svg)";
             }
 
             link.style.setProperty("--src", icon);
@@ -169,11 +169,11 @@ async function start_loading_process() {
 
             if (((item.cover_url).split('.')[1]) !== 'mp4') {
                 const cover_image = create_element("div", "cover-image, subtle-component");
-                cover_image.style.setProperty("background-image", `url("./assets/shop/${item.cover_url}")`);
+                cover_image.style.setProperty("background-image", `url("../assets/shop/${item.cover_url}")`);
                 listen_item.appendChild(cover_image);
             } else {
                 const video = create_element("video", "video-embed, subtle-component");
-                video.src = `./assets/shop/${item.cover_url}`;
+                video.src = `../assets/shop/${item.cover_url}`;
                 video.setAttribute("controls", true);
                 listen_item.appendChild(video);
             }

@@ -45,7 +45,7 @@
     width: 100%;
     aspect-ratio: 1 / 1;
     cursor: pointer;
-    transform: scale(0.95)
+    transform: scale(0.95);
 }
 
 .span-info {font-size: .75rem;}
@@ -61,12 +61,15 @@
 }
 
 .play-button.paused {
-    background-image: url(./assets/play.svg);
+    background-image: url(../assets/play.svg);
+    background-size: contain;
 }
 
 .play-buttons > .play-button:not(.paused) {
     aspect-ratio: 1 / 1;
-    background-image: url(./assets/pause.svg);
+    background-image: url(../assets/pause.svg);
+    background-size: contain;
+
 }
 
 .elapsed {

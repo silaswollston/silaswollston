@@ -3,7 +3,7 @@ const book_container = document.querySelector('.book-container');
 function generate_book(obj, text_image=obj.text_image, text_name=obj.text_name, text_description=obj.text_description, text_extra=obj.text_extra, text_published=obj.text_published) {
     const book = create_element("div", "book");
         const cover = create_element("div", "book-cover");
-        cover.style.backgroundImage = `url(./assets/read/${text_image})`;
+        cover.style.backgroundImage = `url(../assets/read/${text_image})`;
         const container = create_element("div", "container");
             const title = create_element("h2", "text-name");
             title.textContent = text_name;
@@ -35,7 +35,7 @@ function generate_read_panel() {
         const title = create_element("span", "text-title, text-name");
         const text_abstract = create_element("div", "text-abstract, scroll-container");
         const mobile_exit = create_element("img", "exit");
-        mobile_exit.src = "./assets/exit.svg";
+        mobile_exit.src = "../assets/exit.svg";
 
         mobile_exit.addEventListener("click", () => {
             panel.classList.add("minimised");
@@ -52,7 +52,7 @@ document.body.appendChild(read_panel);
 
 function update_read_panel(current_obj, read_panel) {
     try{read_panel.querySelector(".read-in-website").remove();} catch(err) {}
-    read_panel.querySelector(".backdrop").style.backgroundImage = `url(./assets/read/${current_obj.text_image})`;
+    read_panel.querySelector(".backdrop").style.backgroundImage = `url(../assets/read/${current_obj.text_image})`;
     read_panel.querySelector(".text-title").textContent = current_obj.text_name;
 
     let pars = current_obj.text_extra.split('\n');

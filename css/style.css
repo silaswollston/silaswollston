@@ -114,6 +114,11 @@ body > *:not(.background-image, nav, .cursor, .no-anim, .cards-container, .loadi
     background: rgba(0, 31, 84, 0.3);
     backdrop-filter: blur(15px);
     z-index: 90;
+    pointer-events: all;
+}
+
+.pop-up-container.hidden {
+    pointer-events: none;
 }
 
 a, .nav-button {cursor: pointer}

@@ -400,13 +400,13 @@ const navigation_container = document.querySelector('nav');
 
 const navigation_layout = [
     {pages: [
-        {text: null, image: './assets/Home.svg', link: './index.html'}
+        {text: null, image: '../assets/Home.svg', link: '../index.html'}
     ]},
     {pages: [
-        {text: 'Listen', link: './listen.html'},
-        {text: 'Read', link: './read.html'},
-        {text: 'About', link: './about.html'},
-        {text: 'Contact', link: './contact.html'}
+        {text: 'Listen', link: '../pages/listen.html'},
+        {text: 'Read', link: '../pages/read.html'},
+        {text: 'About', link: '../pages/about.html'},
+        {text: 'Contact', link: '../pages/contact.html'}
     ]}
 ]
 
@@ -436,12 +436,12 @@ function create_mobile_nav(navigation_container, navigation_layout) {
     const hamburger = create_element("img", "nav-button");
 
     const home = create_element("a", "home-link");
-    home.href = './index.html'
+    home.href = '../index.html'
     const home_image = create_element("img", null);
-    home_image.src = './assets/Home.svg'
+    home_image.src = '../assets/Home.svg'
     home.appendChild(home_image)
 
-    hamburger.src = './assets/hamburger.svg';
+    hamburger.src = '../assets/hamburger.svg';
     hamburger.classList.add('image-shadow')
     navigation_container.appendChild(home);
     navigation_container.appendChild(hamburger);
@@ -452,7 +452,7 @@ function create_mobile_nav(navigation_container, navigation_layout) {
     
 
     const exit = create_element("img", "exit-button");
-    exit.src = './assets/exit.svg'
+    exit.src = '../assets/exit.svg'
     navigation.appendChild(exit)
 
         const nav_items = navigation_layout[1].pages;
@@ -586,7 +586,7 @@ let fetch_json = true;
 if(['index.html', null, undefined, '', ' '].includes(get_page_name())) {fetch_json = false;}
 
 if(fetch_json) {
-    fetch('./website_struct.md')
+    fetch('../website_struct.md')
     .then(data => {
         return data.text();
     })
