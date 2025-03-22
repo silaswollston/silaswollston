@@ -52,11 +52,11 @@
 .container > .text-date {
     opacity: 0.8;
     font-size: 1.125rem;
-    font-weight: 100;
+    font-weight: 300;
 }
 
 .container p.text-description {
-    font-weight: 100;
+    font-weight: 300;
     width: 90%;
 }
 

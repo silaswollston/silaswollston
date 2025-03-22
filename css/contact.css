@@ -22,7 +22,7 @@
     align-items: center;
     gap: .75rem;
     font-family: inherit;
-    font-weight: 100;
+    font-weight: 300;
 
     animation: slide-in-center 1s 250ms ease forwards;
 }
@@ -36,6 +36,7 @@
     text-align: center;
     width: 10rem;
     max-width: 25rem;
+    font-family: inherit;
 
     transform: translateY(200%);
     transition: 250ms ease all;

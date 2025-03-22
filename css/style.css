@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
+
 *, *::before, *::after {
     margin: 0;
     padding: 0;
@@ -25,7 +27,7 @@ body {
     width: 100%;
     height: 100vh;
     overflow-x: hidden;
-    font-family: 'TT-Sans', sans-serif;
+    font-family: 'DM Sans', sans-serif;
     text-rendering: optimizeLegibility;
 }
 
@@ -388,7 +390,7 @@ h1 {
 }
 
 .info-container p {
-    font-weight: 100;
+    font-weight: 300;
     color: var(--white);
     opacity: 0.9;
 }

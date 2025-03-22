@@ -10,7 +10,7 @@ body {
     font-size: 2.5rem;
     color: var(--white);
     font-family: 'Larken';
-    font-weight: 100;
+    font-weight: 300;
 }
 
 .listen-items {
@@ -138,6 +138,7 @@ body {
     grid-template-rows: 1fr;
     margin: 2.5rem auto 0 auto;
     background: var(--transparent-light);
+    font-family: "DM Sans";
     border-radius: 10vw;
     border: var(--standard-border);
 }
