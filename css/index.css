@@ -1,0 +1,255 @@
+main {
+    display: grid;
+    grid-template-columns: min-content 1fr 1fr;
+    grid-template-rows: auto auto 1fr 1fr;
+    padding-block: calc(min(var(--nav-height), var(--nav-max-height)) + .75rem) 5vh;
+    margin-inline: auto;
+    width: fit-content;
+    min-width: 70vw;
+    min-height: 47.5vw;
+    gap: 1rem;
+    overflow: visible;
+}
+
+main > .portrait {
+    grid-column: 1 / 2;
+    grid-row: 1 / -1;
+    max-height: min(85vh, 900px);
+    margin-right: -1.5rem;
+    width: fit-content;
+    mask-image: url(../assets/alpha_portrait.png), linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.8) 35%, rgba(255,255,255,1) 50%);
+    mask-composite: add;
+    mask-repeat: no-repeat;
+    mask-size: 100% 100%;
+    z-index: -1;
+}
+
+main > h1 {
+    padding: 0; margin: 0;
+    text-box: trim-both auto;
+    grid-row: 1 / 2;
+    grid-column: 2 / 4;
+    height: fit-content;
+    width: fit-content;
+    font-weight: 300;
+    text-wrap: nowrap;
+}
+
+main > p {
+    grid-row: 2 / 3;
+    grid-column: 2 / 4;
+    max-width: 40ch;
+    color: var(--white);
+    font-size: 1.25rem;
+    line-height: 150%;
+    margin-block: -1ch 2ch;
+    text-align: left;
+}
+
+main > div {
+    background: rgba(160, 157, 157, 0.3);
+    border-radius: .75rem;
+    padding: 1rem;
+    color: var(--white);
+    backdrop-filter: blur(.5rem);
+}
+
+main > .performances {
+    grid-row: 3 / 5;
+    grid-column: 2 / 3;
+}
+
+main > .recording {
+    grid-row: 3 / 4;
+    grid-column: 3 / 4;
+}
+
+main > .press {
+    grid-row: 4 / 5;
+    grid-column: 3 / 4;
+}
+
+@media (min-width: 1990px) {
+    html {zoom: initial}
+}
+
+@media (max-width: 1300px) {
+    main > .portrait {
+        max-height: min(85vh, 650px);
+    }
+}
+
+@media (max-width: 1060px) {
+    main {
+        max-width: 90vw;
+        grid-template-columns: 1fr 1fr min-content;
+        padding-left: 2rem;
+    }
+    main > h1 {
+        grid-column: 1 / 3;
+    }
+    main > p {
+        font-size: 1.125rem;
+        grid-column: 1 / 3;
+    }
+    main > .portrait {
+        --left-bleed: -10vw;
+        grid-column: 3 / 4;
+        margin-right: unset;
+        margin-left: var(--left-bleed);
+    }
+    main > .performances {grid-column: 1 / 2;}
+    main > .press, main > .recording {grid-column: 2 / 3;}
+
+}
+
+@media (max-width: 980px) {
+    main > h1 {font-size: 5rem;}
+}
+
+@media (max-width: 900px) {
+    main {
+        --extra-bento-width: 40%;
+        grid-template-rows: auto auto auto 1fr 1fr;
+    }
+    main > .performances {
+        grid-column: 1 / 3;
+        min-height: 35vh;
+    }
+    main > .recording {
+        grid-row: 5 / 6;
+        grid-column: 1 / 2;
+    }
+    main > .press {
+        grid-row: 5 / 6;
+        grid-column: 2 / 3;
+        margin-left: var(--extra-bento-width)
+    }
+    main > .recording, main > .press {
+        min-width: calc(100% + var(--extra-bento-width))
+    }
+}
+
+@media (max-width: 840px) {
+    main {padding-left: 5vw;}
+    main > h1 {font-size: 8.5vw;}
+    main > p {font-size: 1.075rem; max-width: 30ch;}
+}
+
+@media (max-width: 770px) {
+    main {
+        grid-template-rows: auto auto auto auto;
+        grid-template-columns: 1fr 1fr;
+        padding-left: unset;
+        padding-inline: 5vw;
+    }
+    main > .portrait {
+        --left-bleed: -5vw;
+        max-width: calc(100% - var(--left-bleed));
+        transform: translateX(1.5rem);
+        min-height: unset;
+        grid-column: 1 / 2; grid-row: 2 / 4;
+    }
+    main > h1 {
+        width: 100%;
+        text-align: center;
+        grid-column: 1 / 3; 
+        grid-row: 1 / 2;
+        font-size: 5rem;
+    }
+    main > p {
+        position: relative;
+        grid-column: 2 / 3;
+        margin-block: 0;
+        height: fit-content;
+    }
+    main > p::before {
+        position: absolute;
+        content: '';
+        inset: -3ch;
+        filter: blur(3rem);
+        background: var(--darkest);
+        z-index: -1;
+    }
+    main > .performances {grid-column: 2 / 3; grid-row: 3 / 4; height: 100%;}
+    main > .recording {grid-column: 1 / 2; grid-row: 4 / 5;}
+    main > .press {grid-column: 2 / 3; grid-row: 4 / 5;}
+    main > .recording, main > .press {
+        width: 100%;
+        min-width: unset;
+        margin-left: 0;
+        min-height: 30vh;
+    }
+}
+
+@media (max-width: 725px) {
+    main > .portrait {
+        margin-left: 2vw;
+        width: 110%;
+        justify-self: right;
+        height: 100%;
+        object-fit: cover;
+        mask-size: cover;
+        mask-position: center right;
+        object-position: center right;
+    }
+}
+
+@media (max-width: 660px) {
+    main {margin-inline: 10vw}
+    main > h1 {font-size: 10vw;}
+    main > .portrait {
+        transform: translateX(1rem);
+        margin-left: -5vw;
+        min-width: 40vw;
+        min-height: 32.5ch;
+    }
+    main > .portrait, main > p {grid-row: 2 / 3}
+    main > p {
+        max-width: unset;
+        width: 110%;
+    }
+    main > .performances {
+        grid-column: 1 / 3; 
+        width: 90%; 
+        margin-inline: auto;
+    }
+    main > .recording {grid-row: 4 / 5; grid-column: span 2;}
+    main > .press {grid-row: 5 / 6; grid-column: span 2;}
+    main > .recording, main > .press {
+        width: 70%;
+        margin: auto;
+    }
+}
+
+@media (max-width: 600px) {
+    main > p {font-size: 1rem;}
+    main {margin-inline: 4.5vw}
+}
+
+@media (max-width: 570px) {
+    main > .portrait {
+        margin-left: -5vw;
+        min-width: 40vw;
+        min-height: 30ch;
+    }
+    main > h1 {font-size: 12.5vw;}
+}
+
+@media (max-width: 500px) {
+    main {row-gap: 1.5rem;}
+    main > .portrait, main > p {margin-top: -.5rem;}
+    main > .recording, main > .press {
+        min-height: unset;
+        height: 20vh;
+        width: 90%;
+    }
+}
+
+@media (max-width: 400px) {
+    main > .portrait {max-height: 25ch; min-height: unset;}
+    main > p {
+        font-size: 0.9rem;
+        line-height: 125%;
+    }
+}
