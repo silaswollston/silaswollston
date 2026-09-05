@@ -11,13 +11,14 @@
     --dark: #001F54;
     --blue: #034078;
     --light-blue: #328FAA;
-    --white: #E0E1DD;
+    --white: #f1f1ee;
 
     --transparent-light: #b2c8ce5e;
     --transparent-blue: #11354669;
 
     --active-shadow: inset 0 .25rem .5rem rgba(255, 255, 255, 0.2), 0 1rem .5rem rgba(0, 0, 0, 0.4);
     --standard-border: 1px solid rgba(255, 255, 255, 0.2);
+    --text-shadow: drop-shadow(0 0.125rem 0.125rem rgba(0,0,0,0.5));
 }
 
 html, body {scroll-behavior: smooth !important;}
@@ -33,11 +34,16 @@ body {
     text-rendering: optimizeLegibility;
 }
 
-/* body > *:not(.background-image, nav, .cursor, .no-anim, .cards-container, .loading-container, .read-panel) {
+body > *:not(.background-image, nav, .cursor, .no-anim, .cards-container, .loading-container, .read-panel) {
     opacity: 0;
     transform: translateY(10%);
     transition: all 1s ease;
-} */
+
+    @media (prefers-reduced-motion: reduce) {
+        transition: none;
+    }
+
+}
 
 .custom-scroll-bar::-webkit-scrollbar {
     width: 1em;
