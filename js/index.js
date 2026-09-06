@@ -229,6 +229,7 @@ async function load_recording_container(recording_obj) {
 async function load_press_container(press_obj) {
     press.querySelector("a").href = set_href(press_obj["Publication Link"]);
     press.querySelector(".press-info").textContent = press_obj["Publication Text"];
+    console.log(press_obj)
     const press_img_link = get_image_link(press_obj);
     await new Promise((resolve, reject) => {
         const img = new Image();
@@ -309,6 +310,7 @@ async function load_content() {
 
     const press_res = await fetch_named_range("press");
     const press_obj = parse_table(press_res)[0];
+    load_press_container(press_obj);
 }
 
 function visual_layer_integration() {
