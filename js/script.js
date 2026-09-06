@@ -247,6 +247,32 @@ function get_average_light_dark_colors(image_src, callback) {
     };
 }
 
+function $(str) {
+    return document.querySelectorAll(str);
+}
+
+function $el(str) {
+    const split = str.split(".");
+    const dom_el = document.createElement(split[0] === '' ? "div" : split[0]);
+    if(split.length > 1) split[1].split(",").forEach(class_name => dom_el.classList.add(class_name))
+    return dom_el;
+}
+
+Element.prototype.appendChildren = function (...children) {
+    children.forEach(child => {
+        this.appendChild(child);
+    });
+    return this;
+};
+
+function parse_gb_date(str) {
+    const split = str.split("/");
+    const mm = split[1].length > 1 ? split[1] : `0${split[1]}`;
+    const dd = split[0].length > 1 ? split[0] : `0${split[0]}`;
+    const yyyy = split[2].length > 2 ? split[2] : `20${split[2]}`;
+    return Date.parse([mm, dd, yyyy].join("/"));
+}
+
 async function fetch_data(sheet_name, api_key = "AIzaSyAM07AIfBXXRU0Y8MbpzySSVtCAG3xjHr0", link = "https://docs.google.com/spreadsheets/d/1FauXTMjWxaPddvDzqazbUtSWVtY7sgNjVk4arYobhFY/edit?usp=sharing") {
     try {
         const sheet_id = link.match(/\/d\/(.*?)\//)[1];

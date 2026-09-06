@@ -64,7 +64,16 @@ body > *:not(.background-image, nav, .cursor, .no-anim, .cards-container, .loadi
 
 .hidden {opacity: 0;}
 
+.disable-mask {
+    mask: none;
+    -webkit-mask: none;
+}
+
 .loading-container.hidden {opacity: 1}
+
+sup {
+    font-size: 75%;
+}
 
 .cards-container {
     margin-left: 0;

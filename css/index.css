@@ -38,6 +38,10 @@ main > h1 {
     text-wrap: nowrap;
 }
 
+main > h1:not(.pre-render) {
+    animation: swipe-load 1s ease-out forwards;
+}
+
 main > p {
     grid-row: 2 / 3;
     grid-column: 2 / 4;
@@ -54,13 +58,21 @@ main > h1, main > p {
     mask-size: 300%;
     mask-position: 100%;
     mask-repeat: no-repeat;
-    animation: swipe-load-p 1s ease-out forwards;
+    
 }
 
 main > p {
+    opacity: 0;
     mask-size: 100% 300%;
     mask-image: linear-gradient(180deg, white 70%, transparent 100%);
     mask-position: 0% calc(var(--height) * -3);
+}
+
+main > p.pre-render {opacity: 0;}
+
+main > p:not(.pre-render) {
+    opacity: 1;
+    animation: swipe-load-p 2s ease-out forwards;
 }
 
 main > div, body > .modal > .performances {
@@ -74,8 +86,13 @@ main > div, body > .modal > .performances {
     max-width: 27.5rem;
 }
 
-main > div {
+main > div.pre-render {
     opacity: 0;
+}
+
+main > div:not(.pre-render) {
+    opacity: 0;
+    transition: width 4s ease;
     animation: main-div-load-in 4s var(--animation-offset) ease-out forwards;
 }
 
@@ -101,7 +118,7 @@ main > .performances, .modal > .performances {
     margin-top: -.25em;
 }
 
-.special {
+.event .additional-line > b {
     color: var(--special);
     font-weight: 500;
     font-style: italic;
@@ -192,6 +209,8 @@ body > .modal > .performances {
 .performances.expanded > .events-container > .event > .heading {
     font-size: 1.75rem;
     font-weight: bold;
+    line-height: 100%;
+    margin-bottom: .25em;
 }
 
 .performances.expanded > .events-container > .event:first-child {
@@ -206,7 +225,7 @@ body > .modal > .performances {
     font-weight: bold;
 }
 
-.event > a::after {
+.event > a:not([href="#"])::after {
     content: "»";
     padding-left: .25rem;
     display: inline-block;
@@ -312,6 +331,10 @@ main > .performances > h3 {
     transition: filter 500ms ease;
 }
 
+.event > a[href="#"] {
+    cursor: initial;
+}
+
 .event:hover::before {
     filter: brightness(1.25);
 }
@@ -404,6 +427,7 @@ main > .recording {
     grid-template-columns: 1.25fr 1.5fr;
     grid-template-rows: auto 1fr;
     padding: 0;
+    height: fit-content;
     column-gap: 1rem;
     row-gap: .5rem;
     overflow-y: auto;
@@ -508,12 +532,25 @@ main > .recording {
 
 @media (max-width: 1060px) {
         /* Expand Change */
+    main > .performances {
+        min-width: calc(100% + var(--extra-performances-width));
+    }
+    main > .recording, main > .press {
+        margin-left: var(--extra-performances-width);
+        min-width: calc(100% + var(--extra-performances-width) * 0.5);
+        width: fit-content;
+    }
+    .press > .cover-img {
+        min-width: 6.5em;
+    }
+
     .performances.expanded {
         grid-column: 1 / 3;
         grid-row: 1 / -1;
         width: 110%;
     }
     body > main {
+        --extra-performances-width: 10%;
         max-width: 90vw;
         grid-template-columns: 1fr 1fr min-content;
         padding-inline: 0;
@@ -546,11 +583,12 @@ main > .recording {
         width: 100%;
     }
     .event > .heading {font-size: 1.125rem;}
-    .event > .shortened-info {font-size: 1rem;}
+    .event > .shortened-info, .event > .additional-line {font-size: 1rem;}
     .recording > .cd {
         width: 5.5rem;
     }
     .recording > span, .press > span {font-size: 1rem;}
+    
 }
 
 @media (max-width: 950px) {    
@@ -577,7 +615,7 @@ main > .recording {
 
     body > main {
         --extra-bento-width: 40%;
-        padding-left: unset;
+        --extra-performances-width: 0%;
         grid-template-rows: auto auto auto auto 1fr;
         height: min-content; min-height: unset; max-height: unset;
     }
@@ -585,6 +623,7 @@ main > .recording {
     main > .performances {
         grid-column: 1 / 3;
         max-height: 37.5vh;
+
     }
     main > .auto-order.taller {
         grid-row: 5 / 6;
@@ -599,13 +638,15 @@ main > .recording {
         margin-left: var(--extra-bento-width)
     }
     main > .recording, main > .press {
-        min-width: calc(100% + var(--extra-bento-width))
+        min-width: calc(100% + var(--extra-bento-width));
+        margin-left: initial;
     }
 }
 
 @media (max-width: 900px) {
     body > main {
         --extra-bento-width: 60%;
+        margin-left: 1.5rem;
     }
 }
 
@@ -689,6 +730,7 @@ main > .recording {
         transform: translateX(1rem);
         margin-left: -5vw;
     }
+    main > .performances > h3, .modal > .performances > h3 {padding-inline: 3rem;}
     main > .portrait, main > p {grid-row: 2 / 3}
     main > p {
         max-width: unset;
@@ -741,6 +783,10 @@ main > .recording {
     main > .recording, main > .press {
         min-height: unset;
         width: 90%;
+    }
+    main > .portrait {
+        height: 100%;
+        max-height: unset;
     }
 }
 
