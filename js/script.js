@@ -315,8 +315,13 @@ function close_pop_up() {
 function fit_content(el) {el.style.height = 'fit-content'}
 
 function fix_height_in_pixels(el) {
-    el.style.height = `${el.style.offsetHeight}px`;
+    el.style.height = `${el.offsetHeight}px`;
     console.log('Fixed Height of' + el)
+}
+
+function fix_width_in_pixels(el) {
+    el.style.width = `${el.offsetWidth}px`;
+    console.log('Fixed Width of' + el)
 }
 
 function animate_children(container_query, speed) {
@@ -349,12 +354,21 @@ function read_more() {
 function responsive_background() {
     const background = document.querySelector('.gradient');
     if(background) {
+        let scale = 500;
+        background.style.transform = `translate(${(window.innerWidth / 2) / scale}%, ${(window.innerHeight / 2) / scale}%) rotate(${(window.innerHeight / 2) / 50}deg)`;
         window.addEventListener("mousemove", (e) => {
-            let scaledX = e.clientX / 250;
-            let scaledY = e.clientY / 250;
-            background.style.transform = `translate(${scaledX}%, ${scaledY}%) rotate(${e.clientY / 50}deg)`
+            let scaledX = e.clientX / scale;
+            let scaledY = e.clientY / scale;
+            background.style.transform = `translate(${scaledX}%, ${scaledY}%) rotate(${e.clientY / 50}deg)`;
         })
     }
+}
+
+function fix_row_heights(children) {
+    const heights = Array.from(children)
+        .map(child => `${child.getBoundingClientRect().height}px`);
+
+    children[0].parentElement.style.gridTemplateRows = heights.join(" ");
 }
 
 function copy_text(selector) {

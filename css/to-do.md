@@ -1,3 +1,7 @@
-- [ ] Finish .press 
+- [x] Finish .press 
 - [ ] Create maximised performances section
+    - [x] Desktop
+    - [ ] Mobile
 - [ ] Link up everything with spreadsheet (including images)
+- [ ] Add load in animations
+    - [ ] Background fade using image mask composite for .portrait

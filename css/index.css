@@ -1,4 +1,4 @@
-main {
+body > main {
     display: grid;
     grid-template-columns: min-content auto min-content;
     grid-template-rows: auto auto auto 1fr;
@@ -17,7 +17,7 @@ main {
 main > .portrait {
     grid-column: 1 / 2;
     grid-row: 1 / -1;
-    max-height: min(85vh, 900px);
+    max-height: min(92.5vh, 900px);
     margin-right: -1.5rem;
     width: fit-content;
     mask-image: url(../assets/alpha_portrait.png), linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.8) 35%, rgba(255,255,255,1) 50%);
@@ -49,18 +49,38 @@ main > p {
     text-align: left;
 }
 
-main > div {
+main > h1, main > p {
+    mask-image: linear-gradient(90deg, white 40%, transparent 60%);
+    mask-size: 300%;
+    mask-position: 100%;
+    mask-repeat: no-repeat;
+    animation: swipe-load-p 1s ease-out forwards;
+}
+
+main > p {
+    mask-size: 100% 300%;
+    mask-image: linear-gradient(180deg, white 70%, transparent 100%);
+    mask-position: 0% calc(var(--height) * -3);
+}
+
+main > div, body > .modal > .performances {
+    --backdrop-blur: 1rem;
     background: linear-gradient(180deg, rgba(255, 255, 255, 0.17) 0%, rgba(94, 102, 123, 0.17) 100%);
     border: 1px solid rgba(161, 175, 222, 0.45);
     box-shadow: inset 0px .25rem .75rem .125rem rgba(14, 13, 33, 0.3);
     border-radius: .5rem;
     padding: 1rem;
     color: var(--white);
-    backdrop-filter: blur(1rem);
     max-width: 27.5rem;
 }
 
-main > .performances {
+main > div {
+    opacity: 0;
+    animation: main-div-load-in 4s var(--animation-offset) ease-out forwards;
+}
+
+main > .performances, .modal > .performances {
+    position: relative;
     --inline-padding: 1.75rem;
     display: flex;
     flex-direction: column;
@@ -68,6 +88,133 @@ main > .performances {
     grid-column: 2 / 3;
     padding: 1.25rem var(--inline-padding);
     height: 100%;
+    z-index: 1;
+    align-self: flex-end;
+    justify-self: left;
+}
+
+.events-container > .event > *:not(.heading, .shortened-info, .additional-line) {display: none}
+
+.event > .additional-line {
+    font-weight: 200;
+    font-size: 1.25rem;
+    margin-top: -.25em;
+}
+
+.special {
+    color: var(--special);
+    font-weight: 500;
+    font-style: italic;
+    filter: brightness(1.2) var(--text-shadow);
+}
+
+body > .modal > .performances {
+    max-width: unset; max-height: unset;
+    width: 80vw; 
+    min-width: 320px;
+    max-height: 80vh;
+    height: fit-content;
+}
+
+.modal > .performances > h3 {
+    font-size: 1.5rem;
+    text-align: center;
+}
+
+.modal {
+    margin-top: min(var(--nav-max-height), var(--nav-height));
+    position: fixed;
+    display: none;
+    place-content: center;
+    inset: 0;
+    z-index: 50;
+}
+
+.modal::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: rgba(12,14,34);
+    opacity: 0;
+}
+
+.modal.visible::after {
+    opacity: 0.575;
+    transition: opacity 1s 250ms ease;
+}
+
+.performances::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: #0c0e22;
+    opacity: 0;
+    z-index: -1;
+    transition: opacity 500ms ease;
+    border-radius: inherit;
+}
+
+/* ===================== Expanded ======================== */
+
+.performances.expanded::after {
+    opacity: 0.4;
+}
+
+.performances.expanded {
+    --backdrop-blur: 4rem;
+    grid-column: 2 / 4;
+    grid-row: 1 / -1;
+    width: 100%;
+    max-width: unset;
+    gap: 1rem;
+}
+
+.performances.expanded > .events-container > .event {
+    gap: 0;
+}
+
+.performances.expanded > .events-container {
+    gap: 2rem;
+}
+
+.performances.expanded > .events-container > .event > *:not(.shortened-info, .additional-line) {
+    display: initial;
+    width: fit-content;
+    font-size: 1.25rem;
+    font-weight: 200;
+    text-decoration: none;
+    color: inherit;
+    filter: var(--text-shadow);
+}
+
+.performances.expanded > .events-container > .event > .shortened-info {display: none}
+
+.performances.expanded > .events-container > .event > .heading {
+    font-size: 1.75rem;
+    font-weight: bold;
+}
+
+.performances.expanded > .events-container > .event:first-child {
+    margin-top: 1rem;
+}
+
+.performances.expanded > .events-container > .event > .additional-line {
+    margin-top: initial;
+}
+
+.performances.expanded > .events-container > .event > .date {
+    font-weight: bold;
+}
+
+.event > a::after {
+    content: "»";
+    padding-left: .25rem;
+    display: inline-block;
+    transition: transform 250ms ease;
+}
+
+.performances > .events-container > .event > a:hover::after {
+    transform: translateX(.2em);
 }
 
 main > div > h3 {
@@ -76,6 +223,7 @@ main > div > h3 {
     width: 100%;
     margin-inline: auto;
     padding-inline: 1rem;
+    letter-spacing: -2.5%;
     text-align: center;
     filter: var(--text-shadow)
 }
@@ -143,17 +291,34 @@ main > .performances > h3 {
     border-radius: 50%;
     box-shadow: inset 0px .375rem .4rem -.25rem rgba(255, 255, 255, 0.5);
     backdrop-filter: blur(.9rem);
+    transition: filter 250ms ease;
 }
 
 .events-container > .event.featured::before {
-    background: #c4a461;
+    background: var(--special);
 }
 
-.event > h4 {
+.event > .heading {
     font-size: 1.5rem;
     letter-spacing: .025em;
     line-height: 110%;
+    text-decoration: none;
+    color: inherit;
     filter: var(--text-shadow);
+}
+
+.performances > .events-container > .event > a {
+    margin-right: -.5rem;
+    transition: filter 500ms ease;
+}
+
+.event:hover::before {
+    filter: brightness(1.25);
+}
+
+.performances.expanded > .events-container > .event > a:hover,
+.performances > .events-container > .event > a:hover {
+    filter: var(--text-shadow-hover);
 }
 
 .event > .shortened-info {
@@ -168,7 +333,10 @@ main > .performances > h3 {
     width: 1px;
     height: var(--container-height);
     background: linear-gradient(transparent 0%, var(--white) 2%, var(--white) 95%, transparent 100%);
+    transition: height 500ms ease;
 }
+
+.performances.expanded > .events-container::before {height: var(--expanded-container-height);}
 
 main > .recording {
     grid-row: 3 / 4;
@@ -178,6 +346,7 @@ main > .recording {
 main > .press {
     grid-row: 4 / 5;
     grid-column: 3 / 4;
+    max-height: 35ch;
 }
 
 main > .recording, main > .press {
@@ -199,30 +368,41 @@ main > .recording {
     margin-bottom: .25rem;
 }
 
-.recording > img {
+.recording > .cd {
     grid-column: 1 / 2;
     grid-row: 2 / 3;
     justify-self: right;
     width: 8rem;
     border-radius: .5rem;
+    overflow: hidden;
     aspect-ratio: 1;
     box-shadow: 0px 1.125rem .45rem -.5rem rgba(0, 0, 0, 0.3);
+    transition: box-shadow 250ms ease, transform 250ms ease;
+}
+
+.recording > .cd:hover {
+    box-shadow: 0px 1.25rem .45rem -.5rem rgba(0, 0, 0, 0.4);
+    transform: translate(0, -4%) scale(1.025);
+}
+
+.cd > img {
+    width: 100%;
+    height: 100%;
 }
 
 .recording > span, .press > span {
     font-family: "Larken";
     font-weight: 100;
-    font-size: 1.25rem;
+    font-size: 1.15rem;
     width: min-content;
     min-width: 10ch;
 }
 
 .press {
-    --padding: 1rem;
+    --padding: 2rem;
     display: grid;
     grid-template-columns: 1.25fr 1.5fr;
     grid-template-rows: auto 1fr;
-    height: fit-content;
     padding: 0;
     column-gap: 1rem;
     row-gap: .5rem;
@@ -245,13 +425,26 @@ main > .recording {
     position: relative;
     grid-row: 1 / -1;
     width: 100%;
-    max-height: 15em;
+    height: 100%;
+    overflow: hidden;
+}
+
+.press > .cover-img::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: var(--img-src);
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
     mask-image: radial-gradient(75% 149.23% at 75% 50.27%, #000000 0%, #000000 55.29%, rgba(0, 0, 0, 0.625) 68.27%, rgba(0, 0, 0, 0.238095) 77.88%, rgba(0, 0, 0, 0) 88.46%);
     mask-size: 112.5%;
     mask-position: center right;
+    transition: transform 500ms ease;
+}
+
+.press > .cover-img:hover::after {
+    transform: scale(1.1);
 }
 
 .press > .press-info {
@@ -268,15 +461,15 @@ main > .recording {
         main > .recording {
         min-width: 25vw;
     }
-    .recording > img {
+    .recording > .cd {
         width: 5rem;
     }
 }
 
 @media (max-width: 1400px) {
     main > div > h3 {font-size: 1.5rem;}
-    main > div, main > .performances {padding-block: .75rem; gap: .5rem; --inline-padding: 1rem;}
-    .event > h4 {
+    main > div, main > .performances, .modal > .performances {padding-block: .75rem; gap: .5rem; --inline-padding: 1rem;}
+    .event > .heading {
         font-size: 1.35rem;
     }
     .event > .shortened-info {
@@ -286,11 +479,14 @@ main > .recording {
     .performances > .expand {
         width: 1.75rem;
     }
+    .press {
+        --padding: .75rem;
+    }
 }
 
 @media (max-width: 1300px) {
     main > .performances > h3 {padding-inline: 1.5rem;}
-    main {padding-inline: 2rem;}
+    body > main {padding-inline: 2rem;}
     main > .portrait {
         max-height: min(85vh, 650px);
     }
@@ -299,16 +495,25 @@ main > .recording {
 }
 
 @media (max-width: 1200px) {
-    main {
+    body > main {
         gap: .75rem;
     }
     main > h1 {font-size: 4.5rem;}
     main > div > h3 {font-size: 1.25rem;}
     .press > span {font-size: 1rem;}
+    .event > .heading {
+        font-size: 1.25rem;
+    }
 }
 
 @media (max-width: 1060px) {
-    main {
+        /* Expand Change */
+    .performances.expanded {
+        grid-column: 1 / 3;
+        grid-row: 1 / -1;
+        width: 110%;
+    }
+    body > main {
         max-width: 90vw;
         grid-template-columns: 1fr 1fr min-content;
         padding-inline: 0;
@@ -330,37 +535,65 @@ main > .recording {
     main > .performances {
         grid-column: 1 / 2;
     }
-    main > .press, main > .recording {grid-column: 2 / 3;}
+    main > .press {
+        height: fit-content;
+    }
+    main > .press, main > .recording {grid-column: 2 / 3;  width: fit-content;}
 }
 
 @media (max-width: 1000px) {
-    .event > h4 {font-size: 1.125rem;}
+    .performances.expanded {
+        width: 100%;
+    }
+    .event > .heading {font-size: 1.125rem;}
     .event > .shortened-info {font-size: 1rem;}
-    .recording > img {
+    .recording > .cd {
         width: 5.5rem;
     }
     .recording > span, .press > span {font-size: 1rem;}
 }
 
-@media (max-width: 950px) {
-    main {
+@media (max-width: 950px) {    
+    body > .modal {
+        display: grid;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 250ms ease;
+        animation: none;
+    }
+
+    body > .modal > .performances {
+        backdrop-filter: blur(0rem);
+    }
+
+    body > .modal.visible {
+        opacity: 1;
+        pointer-events: all;
+    }
+
+    body > .modal.visible > .performances {
+        animation: transition-backdrop-blur 4s ease forwards;
+    }
+
+    body > main {
         --extra-bento-width: 40%;
+        padding-left: unset;
         grid-template-rows: auto auto auto auto 1fr;
         height: min-content; min-height: unset; max-height: unset;
     }
-    main > div {max-width: unset;}
+    main > div, .modal > .performances {max-width: unset;}
     main > .performances {
         grid-column: 1 / 3;
-        max-height: 45vh;
+        max-height: 37.5vh;
     }
-    main > .recording {
+    main > .auto-order.taller {
         grid-row: 5 / 6;
         grid-column: 1 / 2;
     }
-    .recording > img {
+    .recording > .cd {
         width: 5rem;
     }
-    main > .press {
+    main > .auto-order:not(.taller) {
         grid-row: 5 / 6;
         grid-column: 2 / 3;
         margin-left: var(--extra-bento-width)
@@ -371,17 +604,16 @@ main > .recording {
 }
 
 @media (max-width: 900px) {
-    main {
+    body > main {
         --extra-bento-width: 60%;
     }
 }
 
 @media (max-width: 840px) {
     main > h1 {font-size: 8.5vw;}
-    main {
+    body > main {
         grid-template-rows: auto auto auto auto;
         grid-template-columns: 1fr 1fr;
-        padding-left: unset;
         padding-inline: 5vw;
     }
     main > .portrait {
@@ -450,7 +682,8 @@ main > .recording {
 }
 
 @media (max-width: 660px) {
-    main {margin-inline: 10vw; row-gap: 2rem;}
+        /* Expand Change */
+    body > main {margin-inline: 10vw; row-gap: 2rem;}
     main > h1 {font-size: 10vw;}
     main > .portrait {
         transform: translateX(1rem);
@@ -478,11 +711,19 @@ main > .recording {
         margin-inline: auto;
         background-size: 100% 110%;
     }
+    main > .press {
+        --padding: 1rem;
+        min-height: 10rem;
+        height: unset;
+    }
+    .press > .press-info {
+        max-width: 15ch;
+    }
 }
 
 @media (max-width: 600px) {
     main > p {font-size: 1rem;}
-    main {margin-inline: 4.5vw}
+    body > main {margin-inline: 4.5vw}
 }
 
 @media (max-width: 570px) {
@@ -495,7 +736,7 @@ main > .recording {
 }
 
 @media (max-width: 500px) {
-    main {row-gap: 1.5rem;}
+    body > main {row-gap: 1.5rem;}
     main > .portrait, main > p {margin-top: -.5rem; line-height: 125%;}
     main > .recording, main > .press {
         min-height: unset;
@@ -512,4 +753,32 @@ main > .recording {
     main > p {
         font-size: 0.9rem;
     }
+}
+
+@keyframes main-div-load-in {
+    0% {
+        backdrop-filter: blur(0rem);
+        opacity: 0;
+    }
+    10% {
+        backdrop-filter: blur(0rem);
+        opacity: 1;
+    }
+    100% {
+        backdrop-filter: blur(var(--backdrop-blur));
+        opacity: 1;
+    }
+}
+
+@keyframes transition-backdrop-blur {
+    from {backdrop-filter: blur(0rem);}
+    to {backdrop-filter: blur(var(--backdrop-blur));}
+}
+
+@keyframes swipe-load {
+    to {mask-position: 0% 0%;}
+}
+
+@keyframes swipe-load-p {
+    to {mask-position: 0% calc(var(--height) * -1);}
 }

@@ -16,55 +16,75 @@
         <div class="gradient"></div>
         <img src="./assets/background.png" alt="">
     </div>
-    <main>
+    <main class="no-anim">
         <img src="./assets/portrait.png" alt="Silas Wollston: Portrait" class="portrait">
         <h1>Silas Wollston</h1>
         <p class="info">Silas Wollston is a keyboard player, composer and former academic. His compositions often draw on his knowledge of early music but he is equally inspired by the music of the 20th century. He has published articles on the music of Locke, Purcell and Handel.</p>
-        <div class="performances">
+        <div class="performances" style="--animation-offset: 0ms">
             <h3>Upcoming <br> Performances</h3>
             <button class="expand"><img src="./assets/expand.svg" alt=""></button>
             <div class="events-container custom-scroll-bar">
                 <div class="event">
-                    <h4>Pearls of the Baroque</h4>
+                    <a class="heading" href="#">Pearls of the Baroque</a>
                     <span class="shortened-info">Melrose, 18th September</span>
+                    <span class="date">18th September 2026</span>
+                    <span class="location">Melrose Parish Church, Scotland</span>
+                    <a href="#" class="group">London Handel Players</a>
                 </div>
                 <div class="event featured">
-                    <h4>Pearls of the Baroque</h4>
+                    <a class="heading" href="#">Fretwork's 40th Anniversary</a>
                     <span class="shortened-info">Melrose, 18th September</span>
+                    <span class="date">1st October 2026</span>
+                    <span class="location">Wigmore Hall, London</span>
+                    <a href="#" class="group">Fretwork</a>
+                    <span class="additional-line">Including Silas Wollston's <span class="special">Swansong</span>
+                    </span>
                 </div>
                 <div class="event">
-                    <h4>Pearls of the Baroque</h4>
+                    <a class="heading" href="#">Pearls of the Baroque</a>
                     <span class="shortened-info">Melrose, 18th September</span>
+                    <span class="date">18th September 2026</span>
+                    <span class="location">Melrose Parish Church, Scotland</span>
+                    <a href="#" class="group">London Handel Players</a>
                 </div>
                 <div class="event">
-                    <h4>Pearls of the Baroque</h4>
+                    <a class="heading" href="#">Pearls of the Baroque</a>
                     <span class="shortened-info">Melrose, 18th September</span>
+                    <span class="date">18th September 2026</span>
+                    <span class="location">Melrose Parish Church, Scotland</span>
+                    <a href="#" class="group">London Handel Players</a>
                 </div>
                 <div class="event">
-                    <h4>Pearls of the Baroque</h4>
+                    <a class="heading" href="#">Pearls of the Baroque</a>
                     <span class="shortened-info">Melrose, 18th September</span>
+                    <span class="date">18th September 2026</span>
+                    <span class="location">Melrose Parish Church, Scotland</span>
+                    <a href="#" class="group">London Handel Players</a>
                 </div>
                 <div class="event">
-                    <h4>Pearls of the Baroque</h4>
+                    <a class="heading" href="#">Pearls of the Baroque</a>
                     <span class="shortened-info">Melrose, 18th September</span>
-                </div>
-                <div class="event">
-                    <h4>Pearls of the Baroque</h4>
-                    <span class="shortened-info">Melrose, 18th September</span>
+                    <span class="date">18th September 2026</span>
+                    <span class="location">Melrose Parish Church, Scotland</span>
+                    <a href="#" class="group">London Handel Players</a>
                 </div>
             </div>
         </div>
-        <div class="recording">
+        <div class="recording" style="--animation-offset: 250ms">
             <h3>Latest Recording</h3>
-            <img src="https://drive.google.com/thumbnail?id=1I-DCnPhKADrE27qHyhjRnQjHPOkBl_X_&sz=w1000" alt="" class="cd">
+            <a href="#" class="cd">
+                <img src="https://drive.google.com/thumbnail?id=1I-DCnPhKADrE27qHyhjRnQjHPOkBl_X_&sz=w1000" alt="">
+            </a>
             <span class="cd-info">Telemann Paris Quartets, <br> Vol. 2</span>
         </div>
-        <div class="press custom-scroll-bar">
+        <div class="press custom-scroll-bar" style="--animation-offset: 500ms">
             <h3>In Press</h3>
-            <div style="background-image: url(https://upload.wikimedia.org/wikipedia/commons/b/bd/Dorset_Garden_theatre_1673.JPG?utm_source=en.wikipedia.org&utm_campaign=index&utm_content=original)" alt="" class="cover-img"></div>
+            <a href="#" style="--img-src: url(https://upload.wikimedia.org/wikipedia/commons/b/bd/Dorset_Garden_theatre_1673.JPG?utm_source=en.wikipedia.org&utm_campaign=index&utm_content=original)" alt="" class="cover-img"></a>
             <span class="press-info">Matthew Locke, Consort Music, Volume in Musica Brittanica (2027)</span>
         </div>
     </main>
+    <div class="modal no-anim">
+    </div>
 </body>
 </html>
 
