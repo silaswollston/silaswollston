@@ -651,12 +651,6 @@ main > .recording {
     }
 }
 
-@media (min-width: 840px) {
-    body > main {
-        max-height: 100vw;
-    }
-}
-
 @media (max-width: 840px) {
     main > h1 {font-size: 8.5vw;}
     body > main {
