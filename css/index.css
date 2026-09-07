@@ -90,6 +90,7 @@ main > div.pre-render {
     opacity: 0;
 }
 
+
 main > div:not(.pre-render) {
     opacity: 0;
     transition: width 4s ease;
@@ -327,7 +328,7 @@ main > .performances > h3 {
 }
 
 .performances > .events-container > .event > a {
-    margin-right: -.5rem;
+    margin-right: -1rem;
     transition: filter 500ms ease;
 }
 
@@ -583,7 +584,7 @@ main > .recording {
         width: 100%;
     }
     .event > .heading {font-size: 1.125rem;}
-    .event > .shortened-info, .event > .additional-line {font-size: 1rem;}
+    .event > .shortened-info, .performances:not(.expanded) > .events-container > .event > .additional-line {font-size: 1rem;}
     .recording > .cd {
         width: 5.5rem;
     }

@@ -289,7 +289,7 @@ h1.v2 {
     position: absolute;
     inset: -50%;
     z-index: 1;
-    background: linear-gradient(294deg, transparent 30%, var(--darkest) 50%);
+    background: linear-gradient(294deg, transparent 17.5%, var(--darkest) 50%);
 }
 
 nav.subtle-shadow {

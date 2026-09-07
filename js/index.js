@@ -54,7 +54,6 @@ async function fetch_named_range(
         for (let i = 0; i < runs.length; i++) {
             const start = runs[i].startIndex;
             const end = runs[i + 1]?.startIndex ?? text.length;
-
             const segment = text.slice(start, end);
 
             if (runs[i].format?.bold === true) {
@@ -78,7 +77,13 @@ async function fetch_named_range(
             const cell = values[i];
             const text = cell?.formattedValue;
 
-            if (!text || text.trim() === "") continue;
+            if (!text || text.trim() === "") {
+                row_cells.push({
+                    text: "n/a",
+                    heading: false
+                });
+                continue;
+            }
 
             row_has_content = true;
 
@@ -211,7 +216,7 @@ function _blank(a) {
 }
 
 function activate(el) {
-    el.classList.remove("pre-render")
+    el.classList.remove("pre-render");
 }
 
 async function load_recording_container(recording_obj) {
@@ -248,7 +253,8 @@ async function load_press_container(press_obj) {
 
 async function load_performances_container(performances_obj) {
     performances_obj.forEach(event_obj => {
-        const event = $el(".event");
+        if(event_obj["Date (UK)"] > Date.now()) {
+            const event = $el(".event");
         const heading = $el("a.heading");
         heading.innerHTML = parse_superscript(event_obj["Event Heading"]);
         heading.href = set_href(event_obj["Relevant Event Page"]);
@@ -275,6 +281,7 @@ async function load_performances_container(performances_obj) {
         }
 
         events_container.appendChild(event);
+        }
     })
 }
 
@@ -290,7 +297,7 @@ async function load_content() {
     main.querySelector("h1").classList.remove("pre-render");
 
     requestAnimationFrame(() => {
-        p.classList.remove("pre-render");
+        activate(p)
     });
 
     p.addEventListener("animationend", () => {
@@ -302,15 +309,18 @@ async function load_content() {
     load_performances_container(performances_obj)
     .then(() => {
         events_container.style.setProperty("--container-height", events_container.offsetHeight + "px");
+        activate(performances)
     })
 
     const recording_res = await fetch_named_range("recording");
     const recording_obj = parse_table(recording_res)[0];
     load_recording_container(recording_obj)
+    .then(() => activate(recording));
 
     const press_res = await fetch_named_range("press");
     const press_obj = parse_table(press_res)[0];
-    load_press_container(press_obj);
+    load_press_container(press_obj)
+    .then(() => activate(press));
 }
 
 function visual_layer_integration() {
@@ -318,10 +328,6 @@ function visual_layer_integration() {
     recording.style.setProperty("--margin-top", 
         -1 * ((performances.offsetTop + performances.offsetHeight) - (portrait.offsetTop + portrait.offsetHeight)) + "px"
     )
-
-    activate(performances);
-    activate(recording);
-    activate(press);
 
     if(window.innerWidth <= 950 && window.innerWidth > 840) {
         const order_arr = [press, recording];
@@ -440,3 +446,12 @@ function visual_layer_integration() {
 }
 
 load_content().then(() => visual_layer_integration())
+
+let resize_timeout;
+
+window.addEventListener("resize", (e) => {
+    clearTimeout(resize_timeout);
+    resize_timeout = setTimeout(() => {
+        window.location.reload();
+    }, 250);
+});
