@@ -455,6 +455,7 @@ function append_children(container, children) {
 }
 
 function create_computer_nav(navigation_container, navigation_layout, test_pages) {
+    navigation_container.innerHTML = "";
     navigation_layout.forEach(item => {
         const container = create_element("div", "nav-item");
         item.pages.forEach(sub_item => {
@@ -473,6 +474,7 @@ function create_computer_nav(navigation_container, navigation_layout, test_pages
 }
 
 function create_mobile_nav(navigation_container, navigation_layout) {
+    navigation_container.innerHTML = "";
     const hamburger = create_element("img", "nav-button");
 
     const home = create_element("a", "home-link");
