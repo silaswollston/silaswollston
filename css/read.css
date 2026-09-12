@@ -187,6 +187,11 @@ p > a {
     text-align: justify;
 }
 
+.content > p {
+    line-height: 150%;
+    text-align: left;
+}
+
 
 .content > *:not(:first-child) {
     margin-top: 1em;
