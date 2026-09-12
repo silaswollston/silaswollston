@@ -16,7 +16,6 @@ let expanded_height;
 
 function make_info_clickable(container) {
     container.querySelectorAll('[class*="info"]').forEach(info => {
-
         const link = info.parentElement.querySelector("a");
 
         if (!link) {
@@ -24,11 +23,17 @@ function make_info_clickable(container) {
             return;
         }
 
-        info.style.cursor = "pointer";
+        if(!link.href.includes("#")) {
+            console.log(link.href)
+            info.style.cursor = "pointer";
 
-        info.addEventListener("click", () => {
-            link.click();
-        });
+            info.addEventListener("click", () => {
+                link.click();
+            });
+        } else {
+            info.style.cursor = "initial";
+            link.onclick = (e) => e.preventDefault();
+        }
     });
 }
 
@@ -179,9 +184,6 @@ function set_href(str) {
     return str === "n/a" ? "#" : str
 }
 
-make_info_clickable(recording);
-make_info_clickable(press);
-
 function parse_superscript(str) {
     return String(str).replace(
         /(\d+)(st|nd|rd|th)\b/gi,
@@ -258,6 +260,9 @@ async function load_performances_container(performances_obj) {
         const heading = $el("a.heading");
         heading.innerHTML = parse_superscript(event_obj["Event Heading"]);
         heading.href = set_href(event_obj["Relevant Event Page"]);
+        if(heading.href.includes("#")) {
+            heading.onclick = (e) => e.preventDefault();
+        }
         _blank(heading)
         const short = $el("span.shortened-info");
         short.innerHTML = parse_superscript(event_obj["Shortened Event Info"]);
@@ -324,6 +329,9 @@ async function load_content() {
 }
 
 function visual_layer_integration() {
+    make_info_clickable(recording);
+    make_info_clickable(press);
+
     fix_width_in_pixels(main);
     recording.style.setProperty("--margin-top", 
         -1 * ((performances.offsetTop + performances.offsetHeight) - (portrait.offsetTop + portrait.offsetHeight)) + "px"
@@ -432,6 +440,9 @@ function visual_layer_integration() {
     } else {
         const performances_clone = performances.cloneNode(true);
         performances_clone.classList.add("expanded");
+        Array.from(performances_clone.querySelectorAll("a")).filter(a => a.href.includes("#")).forEach(a => {
+            a.onclick = (e) => e.preventDefault();
+        })
         modal.appendChild(performances_clone);
 
         const events_container_clone = modal.querySelector(".events-container");
@@ -448,10 +459,11 @@ function visual_layer_integration() {
 load_content().then(() => visual_layer_integration())
 
 let resize_timeout;
-
-window.addEventListener("resize", (e) => {
-    clearTimeout(resize_timeout);
-    resize_timeout = setTimeout(() => {
-        window.location.reload();
-    }, 250);
-});
+if(window.innerWidth > 425) {
+    window.addEventListener("resize", (e) => {
+        clearTimeout(resize_timeout);
+        resize_timeout = setTimeout(() => {
+            window.location.reload();
+        }, 250);
+    });
+}
