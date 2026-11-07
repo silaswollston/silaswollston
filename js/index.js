@@ -254,38 +254,43 @@ async function load_press_container(press_obj) {
 }
 
 async function load_performances_container(performances_obj) {
-    performances_obj.forEach(event_obj => {
+    performances_obj.forEach((event_obj) => {
         if(event_obj["Date (UK)"] > Date.now()) {
             const event = $el(".event");
-        const heading = $el("a.heading");
-        heading.innerHTML = parse_superscript(event_obj["Event Heading"]);
-        heading.href = set_href(event_obj["Relevant Event Page"]);
-        if(heading.href.includes("#")) {
-            heading.onclick = (e) => e.preventDefault();
-        }
-        _blank(heading)
-        const short = $el("span.shortened-info");
-        short.innerHTML = parse_superscript(event_obj["Shortened Event Info"]);
-        const date = $el("span.date");
-        const date_val = event_obj["Date (UK)"];
-        date.innerHTML = parse_superscript(format_date(date_val));
-        const location = $el("span.location");
-        location.textContent = event_obj["Location"];
-        const group = $el("a.group");
-        group.href = set_href(event_obj["Performing Group's Website"]);
-        group.textContent = event_obj["Performing Group"]
-        _blank(group)
+            const heading = $el("a.heading");
+            heading.innerHTML = parse_superscript(event_obj["Event Heading"]);
+            heading.href = set_href(event_obj["Relevant Event Page"]);
 
-        event.appendChildren(heading, short, date, location, group);
+            _blank(heading)
+            const short = $el("span.shortened-info");
+            short.innerHTML = parse_superscript(event_obj["Shortened Event Info"]);
+            const date = $el("span.date");
+            const date_val = event_obj["Date (UK)"];
+            date.innerHTML = parse_superscript(format_date(date_val));
+            const location = $el("span.location");
+            location.textContent = event_obj["Location"];
+            const group = $el("a.group");
+            group.href = set_href(event_obj["Performing Group's Website"]);
+            group.textContent = event_obj["Performing Group"]
+            _blank(group)
 
-        if(event_obj["Additional Line"] !== "n/a") {
-            event.classList.add("featured")
-            const additional = $el("span.additional-line");
-            additional.innerHTML = event_obj["Additional Line"];
-            event.appendChild(additional);
-        }
+            event.appendChildren(heading, short, date, location, group);
 
-        events_container.appendChild(event);
+            if(event_obj["Additional Line"] !== "n/a") {
+                event.classList.add("featured")
+                const additional = $el("span.additional-line");
+                additional.innerHTML = event_obj["Additional Line"];
+                event.appendChild(additional);
+            }
+
+            events_container.appendChild(event);
+
+            heading.onclick = (e) => {
+                if(!performances.classList.contains("expanded") || heading.href.includes("#")) {
+                    e.preventDefault();
+                    expand_performances(focused_performance_index = Array.from(events_container.children).indexOf(event));
+                }
+            }
         }
     })
 }
@@ -344,116 +349,128 @@ function visual_layer_integration() {
         press.classList.add("taller");
     }
 
-    if(window.innerWidth > 950) {
-        expand.onclick = () => {
+    expand.onclick = () => expand_performances();
+}
 
+function expand_performances(focused_performance_index) {
+    if(window.innerWidth > 950) {
         const is_expanded = performances.classList.contains("expanded");
 
         if (!is_expanded) {
-            expand.querySelector("img").src = "../assets/contract.svg";
-
-            if (original_width === undefined) {
-
-                original_width = performances.offsetWidth;
-                original_height = performances.offsetHeight;
-                
-                performances.classList.add("expanded");
-                
-                expanded_width = performances.offsetWidth;
-                expanded_height = performances.offsetHeight;
-
-                events_container.style.setProperty("--expanded-container-height", events_container.offsetHeight + "px");
-
-                performances.classList.remove("expanded");
-
-            }
-
-            performances.style.transition = "none";
-            performances.style.width = original_width + "px";
-            performances.style.height = original_height + "px";
-
-            performances.classList.add("expanded");
-
-            performances.querySelector("h3").innerHTML = "Upcoming Performances";
-            
-            requestAnimationFrame(() => {
-                requestAnimationFrame(() => {
-                    
-                    performances.style.transition = "width 500ms ease-in-out, height 500ms ease-in-out";
-                    
-                    performances.offsetWidth;
-                    
-                    performances.style.width = expanded_width + "px";
-                    performances.style.height = expanded_height + "px";
-
-                });
-            });
-
+            expand_desktop_performances(focused_performance_index);
         } else {
-            expand.querySelector("img").src = "../assets/expand.svg";
+            contract_performances();
+        }
+    } else {
+        expand_mobile_performances(focused_performance_index);
+    }
+}
 
-            performances.style.transition = "none";
+function expand_desktop_performances(focused_performance_index = null) {
+    expand.querySelector("img").src = "../assets/contract.svg";
+
+    if (original_width === undefined) {
+
+        original_width = performances.offsetWidth;
+        original_height = performances.offsetHeight;
+
+        performances.classList.add("expanded");
+
+        expanded_width = performances.offsetWidth;
+        expanded_height = performances.offsetHeight;
+
+        events_container.style.setProperty("--expanded-container-height", events_container.offsetHeight + "px");
+
+        performances.classList.remove("expanded");
+
+    }
+
+    performances.style.transition = "none";
+    performances.style.width = original_width + "px";
+    performances.style.height = original_height + "px";
+
+    performances.classList.add("expanded");
+
+    performances.querySelector("h3").innerHTML = "Upcoming Performances";
+
+    requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+            performances.style.transition = "width 500ms ease-in-out, height 500ms ease-in-out";
+
+            performances.offsetWidth;
+
             performances.style.width = expanded_width + "px";
             performances.style.height = expanded_height + "px";
 
-            performances.querySelector("h3").innerHTML = "Upcoming <br> Performances";
+            if(focused_performance_index) events_container.scrollTo({y: Array.from(events_container.children)[focused_performance_index].scrollTop - 16});
+        });
+    });
+}
 
-            requestAnimationFrame(() => {
-                requestAnimationFrame(() => {
+function contract_performances() {
+    expand.querySelector("img").src = "../assets/expand.svg";
 
-                    performances.style.transition = "width 500ms ease-in-out, height 500ms ease-in-out";
+    performances.style.transition = "none";
+    performances.style.width = expanded_width + "px";
+    performances.style.height = expanded_height + "px";
 
-                    performances.offsetWidth;
+    performances.querySelector("h3").innerHTML = "Upcoming <br> Performances";
 
-                    performances.style.width = original_width + "px";
-                    performances.style.height = original_height + "px";
+    requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
 
-                    const finished = new Set();
+            performances.style.transition = "width 500ms ease-in-out, height 500ms ease-in-out";
 
-                    const transition_end = event => {
+            performances.offsetWidth;
 
-                        if (event.propertyName !== "width" && event.propertyName !== "height") return;
+            performances.style.width = original_width + "px";
+            performances.style.height = original_height + "px";
 
-                        finished.add(event.propertyName);
+            const finished = new Set();
 
-                        if (finished.has("width") && finished.has("height")) {
+            const transition_end = event => {
 
-                            performances.removeEventListener("transitionend", transition_end);
+                if (event.propertyName !== "width" && event.propertyName !== "height") return;
 
-                            performances.classList.remove("expanded");
+                finished.add(event.propertyName);
 
-                            performances.style.width = "";
-                            performances.style.height = "";
-                            performances.style.transition = "";
-                        }
+                if (finished.has("width") && finished.has("height")) {
 
-                    };
+                    performances.removeEventListener("transitionend", transition_end);
 
-                    performances.addEventListener("transitionend", transition_end);
-                });
-            });
+                    performances.classList.remove("expanded");
 
-        }
+                    performances.style.width = "";
+                    performances.style.height = "";
+                    performances.style.transition = "";
+                }
 
-    }
-        
-    } else {
-        const performances_clone = performances.cloneNode(true);
-        performances_clone.classList.add("expanded");
-        Array.from(performances_clone.querySelectorAll("a")).filter(a => a.href.includes("#")).forEach(a => {
-            a.onclick = (e) => e.preventDefault();
-        })
-        modal.appendChild(performances_clone);
+            };
 
-        const events_container_clone = modal.querySelector(".events-container");
-        modal.querySelector("h3").innerHTML = "Upcoming Performances";
-        events_container_clone.style.setProperty("--expanded-container-height", events_container_clone.offsetHeight + "px");
+            performances.addEventListener("transitionend", transition_end);
+        });
+    });
+}
 
-        const expand_clone = performances_clone.querySelector(".expand");
-        expand_clone.querySelector("img").src = "../assets/exit.svg";
-        expand.onclick = () => modal.classList.add("visible");
-        expand_clone.onclick = () => modal.classList.remove("visible");
-    }
+function expand_mobile_performances(focused_performance_index = null) {
+    modal.innerHTML = "";
+
+    const performances_clone = performances.cloneNode(true);
+    performances_clone.classList.add("expanded");
+    Array.from(performances_clone.querySelectorAll("a")).filter(a => a.href.includes("#")).forEach(a => {
+        a.onclick = (e) => e.preventDefault();
+    })
+    modal.appendChild(performances_clone);
+
+    const events_container_clone = modal.querySelector(".events-container");
+    modal.querySelector("h3").innerHTML = "Upcoming Performances";
+    events_container_clone.style.setProperty("--expanded-container-height", events_container_clone.offsetHeight + "px");
+
+    const expand_clone = performances_clone.querySelector(".expand");
+    expand_clone.querySelector("img").src = "../assets/exit.svg";
+    modal.classList.add("visible");
+    expand_clone.onclick = () => modal.classList.remove("visible");
+    if(focused_performance_index) events_container_clone.scrollTo({top: Array.from(events_container_clone.children)[focused_performance_index].offsetTop - 32, behavior: "smooth"});
 }
 
 load_content().then(() => visual_layer_integration())
